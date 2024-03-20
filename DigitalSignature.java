@@ -7,7 +7,7 @@ public class DigitalSignature {
     public static void main(String[] args) {
         try {
             // Generate a key pair for the digital signature
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
             keyGen.initialize(2048);
             KeyPair keyPair = keyGen.generateKeyPair();
             PrivateKey privateKey = keyPair.getPrivate();
@@ -22,7 +22,7 @@ public class DigitalSignature {
             System.out.println("Original Message: " + message);
 
             // Sign the message
-            Signature signature = Signature.getInstance("SHA256withRSA");
+            Signature signature = Signature.getInstance("SHA256withDSA");
             signature.initSign(privateKey);
             byte[] messageBytes = message.getBytes(StandardCharsets.UTF_8);
             signature.update(messageBytes);
@@ -33,7 +33,7 @@ public class DigitalSignature {
             System.out.println("Digital Signature: " + base64Signature);
 
             // Verify the digital signature
-            Signature verifier = Signature.getInstance("SHA256withRSA");
+            Signature verifier = Signature.getInstance("SHA256withDSA");
             verifier.initVerify(publicKey);
             verifier.update(messageBytes);
             boolean isValid = verifier.verify(digitalSignature);

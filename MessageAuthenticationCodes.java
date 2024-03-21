@@ -9,7 +9,7 @@ import javax.crypto.Mac;
 public class MessageAuthenticationCodes {
    public static void main(String args[]) throws Exception{
       //Creating a KeyGenerator object
-      KeyGenerator keyGen = KeyGenerator.getInstance("DES");
+      KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
 
       //Creating a SecureRandom object
       SecureRandom secRandom = new SecureRandom();

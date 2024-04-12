@@ -6,7 +6,9 @@ public class OneTimePad {
         char[] encryptedText = new char[text.length()];
 
         for(int i = 0; i < text.length(); i++){
-            encryptedText[i] = (char) (((text.charAt(i) - 'a' + key.charAt(i) - 'a') % 26) + 'a');
+            if (text.charAt(i) < 'z' && text.charAt(i) > 'A')
+                encryptedText[i] = (char) (((text.charAt(i) - 'a' + key.charAt(i) - 'a') % 26) + 'a');
+            else encryptedText[i] = text.charAt(i);
         }
 
         return new String(encryptedText);
@@ -16,7 +18,9 @@ public class OneTimePad {
         char[] decryptedText = new char[text.length()];
 
         for(int i = 0; i < text.length(); i++){
-            decryptedText[i] = (char) (((text.charAt(i) - 'a' - (key.charAt(i) - 'a') + 26) % 26) + 'a');
+            if (text.charAt(i) < 'z' && text.charAt(i) > 'A')
+                decryptedText[i] = (char) (((text.charAt(i) - 'a' - (key.charAt(i) - 'a') + 26) % 26) + 'a');
+            else decryptedText[i] = text.charAt(i);
         }
 
         return new String(decryptedText);

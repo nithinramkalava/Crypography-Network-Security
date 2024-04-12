@@ -8,12 +8,12 @@ public class DiffieHellmanKeyExchange {
         try {
             // Alice's key pair generation
             KeyPairGenerator aliceKeyGen = KeyPairGenerator.getInstance("DH");
-            aliceKeyGen.initialize(2048);
+            // aliceKeyGen.initialize(2048);
             KeyPair aliceKeyPair = aliceKeyGen.generateKeyPair();
 
             // Bob's key pair generation
             KeyPairGenerator bobKeyGen = KeyPairGenerator.getInstance("DH");
-            bobKeyGen.initialize(2048);
+            // bobKeyGen.initialize(2048);
             KeyPair bobKeyPair = bobKeyGen.generateKeyPair();
 
             // Alice's public key

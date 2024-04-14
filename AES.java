@@ -22,7 +22,6 @@ public class AES {
 
     private static SecretKey generateAESKey() throws Exception {
         KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-        keyGen.init(128); 
         return keyGen.generateKey();
     }
 }

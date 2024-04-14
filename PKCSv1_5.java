@@ -10,7 +10,6 @@ public class PKCSv1_5 {
         try {
             // Generate an RSA key pair
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-            keyGen.initialize(2048);
             KeyPair keyPair = keyGen.generateKeyPair();
 
             // Get the public and private keys

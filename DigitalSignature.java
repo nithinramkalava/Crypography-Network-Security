@@ -1,4 +1,3 @@
-import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.util.Base64;
 import java.util.Scanner;
@@ -24,7 +23,7 @@ public class DigitalSignature {
             // Sign the message
             Signature signature = Signature.getInstance("SHA256withDSA");
             signature.initSign(privateKey);
-            byte[] messageBytes = message.getBytes(StandardCharsets.UTF_8);
+            byte[] messageBytes = message.getBytes();
             signature.update(messageBytes);
             byte[] digitalSignature = signature.sign();
 

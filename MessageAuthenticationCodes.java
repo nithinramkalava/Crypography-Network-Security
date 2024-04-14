@@ -1,5 +1,4 @@
 import java.security.Key;
-import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Scanner;
 
@@ -10,14 +9,6 @@ public class MessageAuthenticationCodes {
    public static void main(String args[]) throws Exception{
       //Creating a KeyGenerator object
       KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
-
-      //Creating a SecureRandom object
-      SecureRandom secRandom = new SecureRandom();
-
-      //Initializing the KeyGenerator
-      keyGen.init(secRandom);
-
-      //Creating/Generating a key
       Key key = keyGen.generateKey();     
 
       //Creating a Mac object

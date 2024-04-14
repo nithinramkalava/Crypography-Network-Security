@@ -1,64 +1,66 @@
-import javax.crypto.*;
-import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.util.Scanner;
+import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 
 public class MAC {
 
-    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException {
-        // Message to be authenticated
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter Message: ");
-        String message = sc.nextLine();
+  public static void main(String[] args)
+    throws NoSuchAlgorithmException, InvalidKeyException {
+    // Message to be authenticated
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Enter Message: ");
+    String message = sc.nextLine();
 
-        // Generate a random key
-        byte[] key = generateKey();
+    // Generate a random key
+    byte[] key = generateKey();
 
-        // Create SecretKeySpec object
-        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "HmacSHA256");
+    // Create SecretKeySpec object
+    SecretKeySpec secretKeySpec = new SecretKeySpec(key, "HmacSHA256");
 
-        // Create Mac object
-        Mac mac = Mac.getInstance("HmacSHA256");
-        mac.init(secretKeySpec);
+    // Create Mac object
+    Mac mac = Mac.getInstance("HmacSHA256");
+    mac.init(secretKeySpec);
 
-        // Calculate MAC and convert to hex string
-        byte[] macBytes = mac.doFinal(message.getBytes(StandardCharsets.UTF_8));
-        String macString = bytesToHex(macBytes);
+    // Calculate MAC and convert to hex string
+    byte[] macBytes = mac.doFinal(message.getBytes(StandardCharsets.UTF_8));
+    String macString = bytesToHex(macBytes);
 
-        System.out.println("Original message: " + message);
-        System.out.println("Generated MAC (hex): " + macString);
+    System.out.println("Original message: " + message);
+    System.out.println("Generated MAC (hex): " + macString);
 
-        // Simulate tampering with the message
-        System.out.print("Enter the tampering you want to add to the code (Enter if none): ");
-        message = message + sc.nextLine();
-        sc.close();
+    // Simulate tampering with the message
+    System.out.print(
+      "Enter the tampering you want to add to the code (Enter if none): "
+    );
+    message = message + sc.nextLine();
+    sc.close();
 
-        // Recalculate MAC and verify
-        mac.update(message.getBytes(StandardCharsets.UTF_8));
-        byte[] newMacBytes = mac.doFinal();
-        String newMacString = bytesToHex(newMacBytes);
+    // Recalculate MAC and verify
+    mac.update(message.getBytes(StandardCharsets.UTF_8));
+    byte[] newMacBytes = mac.doFinal();
+    String newMacString = bytesToHex(newMacBytes);
 
-        if (macString.equals(newMacString)) {
-            System.out.println("Message verified as authentic.");
-        } else {
-            System.out.println("Message has been tampered with!");
-        }
+    if (macString.equals(newMacString)) {
+      System.out.println("Message verified as authentic.");
+    } else {
+      System.out.println("Message has been tampered with!");
     }
+  }
 
-    private static byte[] generateKey() {
-        byte[] keyBytes = new byte[32];
-        SecureRandom random = new SecureRandom();
-        random.nextBytes(keyBytes);
-        return keyBytes;
-    }
+  private static byte[] generateKey() {
+    byte[] keyBytes = new byte[32];
+    SecureRandom random = new SecureRandom();
+    random.nextBytes(keyBytes);
+    return keyBytes;
+  }
 
-    private static String bytesToHex(byte[] bytes) {
-        StringBuilder sb = new StringBuilder();
-        for (byte b : bytes) {
-            sb.append(String.format("%02X", b & 0xFF));
-        }
-        return sb.toString();
+  private static String bytesToHex(byte[] bytes) {
+    StringBuilder sb = new StringBuilder();
+    for (byte b : bytes) {
+      sb.append(String.format("%02X", b & 0xFF));
     }
+    return sb.toString();
+  }
 }
-
